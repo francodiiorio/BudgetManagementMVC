@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BudgetManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManagement
 {
@@ -7,5 +8,7 @@ namespace BudgetManagement
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Expense> Expenses { get; set; }
     }
 }
