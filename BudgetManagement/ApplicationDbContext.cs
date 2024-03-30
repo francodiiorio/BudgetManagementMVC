@@ -10,5 +10,7 @@ namespace BudgetManagement
         }
 
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<PaymentVoucher> PaymentVouchers { get; set;}
     }
 }

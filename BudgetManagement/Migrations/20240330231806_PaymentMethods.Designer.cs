@@ -4,6 +4,7 @@ using BudgetManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240330231806_PaymentMethods")]
+    partial class PaymentMethods
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,35 +71,6 @@ namespace BudgetManagement.Migrations
                     b.ToTable("PaymentMethods");
                 });
 
-            modelBuilder.Entity("BudgetManagement.Models.PaymentVoucher", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ExpenseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExpenseId");
-
-                    b.ToTable("PaymentVouchers");
-                });
-
             modelBuilder.Entity("BudgetManagement.Models.PaymentMethod", b =>
                 {
                     b.HasOne("BudgetManagement.Models.Expense", "Expense")
@@ -108,22 +82,9 @@ namespace BudgetManagement.Migrations
                     b.Navigation("Expense");
                 });
 
-            modelBuilder.Entity("BudgetManagement.Models.PaymentVoucher", b =>
-                {
-                    b.HasOne("BudgetManagement.Models.Expense", "Expense")
-                        .WithMany("PaymentVouchers")
-                        .HasForeignKey("ExpenseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Expense");
-                });
-
             modelBuilder.Entity("BudgetManagement.Models.Expense", b =>
                 {
                     b.Navigation("PaymentMethods");
-
-                    b.Navigation("PaymentVouchers");
                 });
 #pragma warning restore 612, 618
         }
